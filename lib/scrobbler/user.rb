@@ -84,8 +84,8 @@ module Scrobbler
       load_profile() if options[:include_profile]
     end
     
-    def api_path
-      "/#{API_VERSION}/user/#{CGI::escape(username)}"
+    def api_path(version = nil)
+      "/#{version || API_VERSION}/user/#{CGI::escape(username)}"
     end
     
     def current_events(format=:ics)
@@ -147,7 +147,7 @@ module Scrobbler
     end
     
     def recent_tracks(force=false)
-      get_instance(:recenttracks, :recent_tracks, :track, force)
+      get_instance(:recenttracks, :recent_tracks, :track, force, "2.0")
     end
     
     def recent_banned_tracks(force=false)

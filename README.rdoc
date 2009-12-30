@@ -4,6 +4,8 @@ Scrobbler is a wrapper for the audioscrobbler web services (http://www.audioscro
 
 Below is just a sampling of how easy this lib is to use.
 
+Dec 30, 2009 (PF): Added ability to call arbitrary versions to api_path function. Added @now_playing (boolean) to Track.
+
 == Users
 
 	user = Scrobbler::User.new('jnunemaker')

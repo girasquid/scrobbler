@@ -85,8 +85,8 @@ module Scrobbler
       @name = name
     end
     
-    def api_path
-      "/#{API_VERSION}/tag/#{CGI::escape(name)}"
+    def api_path(version=nil)
+      "/#{version || API_VERSION}/tag/#{CGI::escape(name)}"
     end
     
     def top_artists(force=false)

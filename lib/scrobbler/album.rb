@@ -99,8 +99,8 @@ module Scrobbler
       load_info() if options[:include_info]
     end
     
-    def api_path
-      "/#{API_VERSION}/album/#{CGI::escape(artist)}/#{CGI::escape(name)}"
+    def api_path(version=nil)
+      "/#{version || API_VERSION}/album/#{CGI::escape(artist)}/#{CGI::escape(name)}"
     end
     
     def load_info

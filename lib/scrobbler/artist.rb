@@ -94,8 +94,8 @@ module Scrobbler
       @name = name
     end
     
-    def api_path
-      "/#{API_VERSION}/artist/#{CGI::escape(name)}"
+    def api_path(version=nil)
+      "/#{version || API_VERSION}/artist/#{CGI::escape(name)}"
     end
     
     def current_events(format=:ics)

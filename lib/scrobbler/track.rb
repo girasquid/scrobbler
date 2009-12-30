@@ -36,7 +36,7 @@
 module Scrobbler
   class Track < Base
     attr_accessor :artist, :artist_mbid, :name, :mbid, :playcount, :rank, :url, :reach
-    attr_accessor :streamable, :album, :album_mbid, :date, :date_uts
+    attr_accessor :streamable, :album, :album_mbid, :date, :date_uts, :now_playing
     
     # only seems to be used on top tracks for tag
     attr_accessor :count, :thumbnail, :image
@@ -46,6 +46,7 @@ module Scrobbler
     
     class << self
       def new_from_xml(xml, doc=nil)
+
         artist          = (xml).at(:artist)['name']               if (xml).at(:artist) && (xml).at(:artist)['name']
         artist          = (xml).at(:artist).inner_html            if artist.nil? && (xml).at(:artist)
         artist          = doc.root['artist']                      if artist.nil? && doc.root['artist']
@@ -70,6 +71,7 @@ module Scrobbler
         t.thumbnail     = (xml).at(:thumbnail).inner_html         if (xml).at(:thumbnail)
         t.image         = (xml).at(:image).inner_html             if (xml).at(:image)
         t.reach         = (xml).at(:reach).inner_html             if (xml).at(:reach)
+        t.now_playing   = xml['nowplaying']                       ? true : false
         t
       end
     end
@@ -81,8 +83,8 @@ module Scrobbler
       @name = name
     end
     
-    def api_path
-      "/#{API_VERSION}/track/#{CGI::escape(artist)}/#{CGI::escape(name)}"
+    def api_path(version=nil)
+      "/#{version || API_VERSION}/track/#{CGI::escape(artist)}/#{CGI::escape(name)}"
     end
     
     def fans(force=false)
